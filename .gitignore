@@ -22,3 +22,20 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+.metadata/.lock
+.metadata/.plugins/org.eclipse.core.resources/.projects/.org.eclipse.egit.core.cmp/.location
+.metadata/.plugins/org.eclipse.core.resources/.projects/.org.eclipse.egit.core.cmp/.markers.snap
+.metadata/.plugins/org.eclipse.core.resources/.projects/.org.eclipse.egit.core.cmp/.syncinfo.snap
+.metadata/.plugins/org.eclipse.core.resources/.projects/ProyectoFinal/.markers.snap
+.metadata/.plugins/org.eclipse.core.resources/.projects/ProyectoFinal/.syncinfo.snap
+.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap
+.metadata/.plugins/org.eclipse.core.resources/1.snap
+.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+.metadata/.plugins/org.eclipse.egit.core/.org.eclipse.egit.core.cmp/.project
+.metadata/.plugins/org.eclipse.jdt.core/externalLibsTimeStamps
+.metadata/.plugins/org.eclipse.jdt.core/variablesAndContainers.dat
+.metadata/.plugins/org.eclipse.jdt.launching/.install.xml
+.metadata/.plugins/org.eclipse.m2e.core/workspaceState.ser
+.sonarlint/default/known-findings-store14904706660512884433/00000000000.xd
+.sonarlint/default/known-findings-store14904706660512884433/xd.lck
+.sonarlint/default/xodus-local-only-issue-store6875439087854929865/xd.lck
