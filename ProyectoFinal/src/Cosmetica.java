@@ -1,11 +1,12 @@
 
 public class Cosmetica extends Producto{
+	private static final long serialVersionUID = 1L;
 	public String descripcion;
 
 	// CONSTRUCTOR
 	public Cosmetica(String nombre, double precio, int stock, int valoracion, String descripcion) {
 		super(nombre, precio, stock, valoracion);
-		this.descripcion = descripcion;
+		setDescripcion(descripcion);
 	}
 
 	// GETTERS & SETTERS

@@ -1,11 +1,12 @@
 
 public class Accesorios extends Producto{
+	private static final long serialVersionUID = 1L;
 	public String material;
 	
 	// CONSTRUCTOR
 	public Accesorios(String nombre, double precio, int stock, int valoracion, String material) {
 		super(nombre, precio, stock, valoracion);
-		this.material = material;
+		setMaterial(material);
 	}
 
 	// GETTERS & SETTERS

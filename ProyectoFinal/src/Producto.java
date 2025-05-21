@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class Producto {
+public class Producto implements Serializable {
+	private static final long serialVersionUID = 1L;
 	public String nombre;
 	public double precio;
 	public int stock;
@@ -8,10 +10,10 @@ public class Producto {
 	// CONTRUCTOR
 	public Producto(String nombre, double precio, int stock, int valoracion) {
 		super();
-		this.nombre = nombre;
-		this.precio = precio;
-		this.stock = stock;
-		this.valoracion = valoracion;
+		setNombre(nombre);
+		setPrecio(precio);
+		setStock(stock);
+		setValoracion(valoracion);
 	}
 	
 	// GETTERS & SETTERS

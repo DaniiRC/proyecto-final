@@ -1,5 +1,6 @@
 
 public class AceiteOliva extends Producto{
+	private static final long serialVersionUID = 1L;
 	public String tipos;
 	public String procedencia;
 	

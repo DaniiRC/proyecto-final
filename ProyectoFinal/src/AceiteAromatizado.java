@@ -1,14 +1,14 @@
 
 public class AceiteAromatizado extends Producto{
-	
+	private static final long serialVersionUID = 1L;
 	public String ingreAromatizante;
 	public int intensidad;
 	
 	// CONTRUCTOR
 	public AceiteAromatizado(String nombre, double precio, int stock, int valoracion, String ingreAromatizante, int intensidad) {
 		super(nombre, precio, stock, valoracion);
-		this.ingreAromatizante = ingreAromatizante;
-		this.intensidad = intensidad;
+		setIngreAromatizante(ingreAromatizante);
+		setIntensidad(intensidad);
 	}	
 	
 	// GETTERS & SETTERS
