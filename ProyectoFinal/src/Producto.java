@@ -65,4 +65,11 @@ public class Producto implements Serializable {
 		this.valoracion = valoracion;
 	}
 	
+	public double calcularPrecioConDescuento(double porcentajeDescuento) {
+	    if (porcentajeDescuento < 0 || porcentajeDescuento > 100) {
+	        throw new IllegalArgumentException("El descuento debe estar entre 0 y 100%");
+	    }
+	    return precio * (1 - porcentajeDescuento / 100);
+	}
+	
 }

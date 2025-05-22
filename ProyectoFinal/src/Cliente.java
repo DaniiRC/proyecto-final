@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.HashSet;
 
 public class Cliente implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -8,6 +9,9 @@ public class Cliente implements Serializable{
 	public String apellidos;
 	public String dni;
 	public String telefono;
+	
+	@SuppressWarnings("unused")
+	private HashSet<String> productosComprados = new HashSet<>();
 	
 	// CONSTRUCTOR
 	public Cliente(String email, String contraseña, String nombre, String apellidos, String dni, String telefono) {
@@ -123,4 +127,24 @@ public class Cliente implements Serializable{
 		this.telefono = telefono;
 	}
 	
+	public void registrarCompra(String nombreProducto) {
+        if (nombreProducto == null || nombreProducto.isBlank()) {
+            throw new IllegalArgumentException("El PRODUCTO no puede estar vacío");
+        }
+        productosComprados.add(nombreProducto);
+    }
+	
+	public boolean haCompradoProducto(String nombreProducto) {
+        return productosComprados.contains(nombreProducto);
+    }
+	
+	public HashSet<String> getProductosComprados() {
+        return new HashSet<>(productosComprados);
+    }
+    
+    @Override
+    public String toString() {
+        return "Datos del cliente: Email -> " + email + ", Nombre -> " + nombre + ", Apellidos -> " + apellidos + 
+               ", DNI -> " + dni + ", Telefono -> " + telefono;
+    }
 }

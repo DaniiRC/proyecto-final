@@ -49,8 +49,10 @@ public class Pedido implements java.io.Serializable {
     	return fechaHora; 
     }
     
-    public void añadirProducto(Producto p, int cantidad) {
+    public void añadirProducto(Producto p, int cantidad, double descuento) {
         productos.put(p.getNombre(), cantidad);
-        total += p.getPrecio() * cantidad;
+        double precioConDescuento = p.calcularPrecioConDescuento(descuento);
+        total += precioConDescuento * cantidad;
+        p.setStock(p.getStock() - cantidad);
     }
 }

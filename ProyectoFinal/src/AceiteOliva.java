@@ -17,7 +17,7 @@ public class AceiteOliva extends Producto{
 	}
 
 	public void setTipos(String tipo) {
-		if(!tipo.equalsIgnoreCase("picual") || !tipo.equalsIgnoreCase("hojiblanca") || !tipo.equalsIgnoreCase("cornicabra") || !tipo.equalsIgnoreCase("arbequina")) {
+		if(!tipo.equalsIgnoreCase("picual") && !tipo.equalsIgnoreCase("hojiblanca") && !tipo.equalsIgnoreCase("cornicabra") && !tipo.equalsIgnoreCase("arbequina")) {
 			throw new IllegalArgumentException("El TIPO tiene que ser 'Picual' o 'Hojiblanca' o 'Cornicabra' o 'Arbequina'.");
 		}
 		this.tipos = tipo;
