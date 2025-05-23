@@ -49,10 +49,15 @@ public class Pedido implements java.io.Serializable {
     	return fechaHora; 
     }
     
-    public void añadirProducto(Producto p, int cantidad, double descuento) {
+	public void añadirProducto(Producto p, int cantidad, double descuento) {
+        if (p.getStock() < cantidad) {
+            throw new IllegalArgumentException("No hay suficiente stock disponible.");
+        }
+        
+        p.setStock(p.getStock() - cantidad);
+        
         productos.put(p.getNombre(), cantidad);
         double precioConDescuento = p.calcularPrecioConDescuento(descuento);
         total += precioConDescuento * cantidad;
-        p.setStock(p.getStock() - cantidad);
     }
 }

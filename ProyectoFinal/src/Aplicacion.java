@@ -17,8 +17,7 @@ public class Aplicacion {
 	public static void productosPredefinidos() {
 		try {
 			productos.put("Oliva Virgen Extra", new AceiteOliva("Oliva Virgen Extra", 10.5, 20, 5, "picual", "Jaén"));
-			productos.put("Hojiblanca Premium",
-					new AceiteOliva("Hojiblanca Premium", 12.0, 15, 6, "hojiblanca", "Córdoba"));
+			productos.put("Hojiblanca Premium", new AceiteOliva("Hojiblanca Premium", 12.0, 15, 6, "hojiblanca", "Córdoba"));
 
 			productos.put("Aceite con Aroma Dulce", new AceiteAromatizado("Aceite Dulce", 20.3, 10, 7, "azúcar", 4));
 			productos.put("Aceite con Aroma Salado", new AceiteAromatizado("Aceite Salado", 21.2, 5, 8, "sal", 2));
@@ -216,51 +215,74 @@ public class Aplicacion {
 	}
 
 	public static void realizarPedido() {
-		Pedido pedido = new Pedido(clienteActual.getEmail());
+	    if (clienteActual == null) {
+	        System.out.println("Debe iniciar sesión primero");
+	        return;
+	    }
 
-		String seleccion;
-		int cantidad;
-		do {
-			System.out.println("\n--- PRODUCTOS DISPONIBLES ---");
-			productos.forEach((nombre, producto) -> {
-				System.out.printf("%s - Precio: %.2f€ - Stock: %d\n", nombre, producto.getPrecio(), producto.getStock());
-						producto.getStock();
-			});
+	    Pedido pedido = new Pedido(clienteActual.getEmail());
+	    String seleccion;
+	    
+	    do {
+	        System.out.println("\n--- PRODUCTOS DISPONIBLES ---");
+	        productos.forEach((nombre, producto) -> {
+	            System.out.printf("%s - Precio: %.2f€ - Stock: %d\n", 
+	                nombre, producto.getPrecio(), producto.getStock());
+	        });
 
-			System.out.print("\nIntroduce el nombre del producto (0 para terminar): ");
-			seleccion = entrada.nextLine();
+	        System.out.print("\nIntroduce el nombre del producto (0 para terminar): ");
+	        seleccion = entrada.nextLine();
 
-			if (!seleccion.equals("0") && productos.containsKey(seleccion)) {
-				Producto p = productos.get(seleccion);
-				double descuento = 0.0;
+	        if (!seleccion.equals("0") && productos.containsKey(seleccion)) {
+	            Producto p = productos.get(seleccion);
+	            double descuento = 0.0;
 
-				// Descuentos para los productos especificos
-				if (p instanceof AceiteAromatizado || p instanceof Cosmetica) {
-					System.out.print("Introduce el descuento a aplicar (%): ");
-					descuento = entrada.nextDouble();
-					entrada.nextLine();
-				}
-				
-				System.out.print("Cantidad: ");
-				cantidad = entrada.nextInt();
-				entrada.nextLine();
+	            if (p instanceof AceiteAromatizado || p instanceof Cosmetica) {
+	                System.out.print("Introduce el descuento a aplicar (%): ");
+	                try {
+	                    descuento = entrada.nextDouble();
+	                    entrada.nextLine();
+	                } catch (Exception e) {
+	                    System.out.println("Descuento no válido. Se establecerá a 0%.");
+	                    descuento = 0.0;
+	                    entrada.nextLine();
+	                }
+	            }
+	            
+	            System.out.print("Cantidad: ");
+	            try {
+	                int cantidad = entrada.nextInt();
+	                entrada.nextLine();
 
-				if (cantidad > 0 && cantidad <= p.getStock()) {
-					pedido.añadirProducto(p, cantidad, descuento);
-					p.setStock(p.getStock() - cantidad);
-					
-					clienteActual.registrarCompra(p.getNombre());
-					System.out.printf("\nAñadido: %d x %s\n", cantidad, p.getNombre());
-				} else {
-					System.out.println("Cantidad no válida o stock insuficiente.");
-				}
-			} else if (!seleccion.equals("0")) {
-				System.out.println("Producto no encontrado.");
-			}
-		} while (!seleccion.equals("0"));
+	                if (cantidad <= 0) {
+	                    System.out.println("La cantidad debe ser mayor que cero.");
+	                    continue;
+	                }
 
-		pedidos.add(pedido);
-		System.out.printf("\nPedido realizado. Total: %.2f€\n", pedido.getTotal());
+	                try {
+	                    pedido.añadirProducto(p, cantidad, descuento);
+	                    clienteActual.registrarCompra(p.getNombre());
+	                    System.out.printf("\n%d x %s añadido(s) al pedido.\n", cantidad, p.getNombre());
+	                    System.out.printf("Stock restante: %d\n", p.getStock());
+	                } catch (IllegalArgumentException e) {
+	                    System.out.println("Error: " + e.getMessage());
+	                }
+	                
+	            } catch (InputMismatchException e) {
+	                System.out.println("Error: Debe ingresar un número válido.");
+	                entrada.nextLine();
+	            }
+	        } else if (!seleccion.equals("0")) {
+	            System.out.println("Producto no encontrado.");
+	        }
+	    } while (!seleccion.equals("0"));
+
+	    if (!pedido.getProductos().isEmpty()) {
+	        pedidos.add(pedido);
+	        System.out.printf("\nEl total del pedido es de: %.2f€\n", pedido.getTotal());
+	    } else {
+	        System.out.println("\nNo se añadieron productos al pedido.");
+	    }
 	}
 
 	private static void guardarClientes(String nombreArchivo) {
